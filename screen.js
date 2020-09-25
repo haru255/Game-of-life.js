@@ -1,3 +1,4 @@
+// 画面の初期化
 const screen = new PIXI.Application({
     width: 512,
     height: 512,
@@ -9,7 +10,7 @@ screen.stage.scale.y = scale;
 let el = document.getElementById('screen');
 el.appendChild(screen.view);
 
-
+// 描画用の点を作成
 let cells = [];
 for (let i=0; i<width; i++) {
     cells[i] = [];
@@ -25,7 +26,8 @@ for (let i=0; i<width; i++) {
     }
 }
 
-screen.ticker.add(function () {
+// 盤面を描画する
+function rendering() {
     for (let i=0; i<width; i++) {
         for (let j=0; j<height; j++) {
             if (board[i][j] == true) {
@@ -34,7 +36,7 @@ screen.ticker.add(function () {
             else cells[i][j].tint = 0x000000;
         }
     }
-    next();
-})
+}
 
-document.getElementById("random").onclick = randomReset;
+screen.ticker.add(rendering);
+screen.ticker.add(next);
