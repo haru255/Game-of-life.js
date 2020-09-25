@@ -1,19 +1,8 @@
-var width =  128;
-var height = 128;
-var board = [];
-for (let i=0; i<height; i++) {
-    board[i] = [];
-    for (let j=0; j<width; j++) {
-        board[i][j] = false;
-        if (Math.random() > 0.8) board[i][j] = true;
-    }
-}
-// board[31][31] = true;
-// board[30][30] = true;
-// board[29][30] = true;
-// board[29][31] = true;
-// board[29][32] = true;
+// 盤面のサイズ
+const width =  128;
+const height = 128;
 
+// 盤面をランダムに初期化する
 function randomReset() {
     for (let i=0; i<height; i++) {
         board[i] = [];
@@ -24,10 +13,12 @@ function randomReset() {
     }
 }
 
+// セルの状態を返す
 function isExist(y,x) {
     return board[y][x];
 }
 
+// セルの周りの生きているセルの数を返す
 function neighborhood(y,x) {
     let cnt = 0;
     for (let i=y-1; i<=y+1; i++) {
@@ -40,9 +31,9 @@ function neighborhood(y,x) {
         }
     }
     cnt -= isExist(y,x);
-
     return cnt;
 }
+// セルの次の状態を返す
 function nextExist(y,x) {
     let cnt = neighborhood(y,x);
     if (!isExist(y,x) && cnt==3) return true;
@@ -50,8 +41,7 @@ function nextExist(y,x) {
     return false;
 }
 
-
-
+// すべてのセルを更新する
 function next() {
     let nextBoard = [];
     for (let i=0; i<height; i++) {
@@ -62,3 +52,9 @@ function next() {
     }
     board = nextBoard;
 }
+
+
+
+// 盤面を初期化
+var board = [];
+randomReset();

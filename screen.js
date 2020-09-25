@@ -1,13 +1,13 @@
-const app = new PIXI.Application({
+const screen = new PIXI.Application({
     width: 512,
     height: 512,
     backgroundColor: 0x000000,
 });
-let scale = app.view.width / width;
-app.stage.scale.x = scale;
-app.stage.scale.y = scale;
-let el = document.getElementById('app');
-el.appendChild(app.view);
+let scale = screen.view.width / width;
+screen.stage.scale.x = scale;
+screen.stage.scale.y = scale;
+let el = document.getElementById('screen');
+el.appendChild(screen.view);
 
 
 let cells = [];
@@ -18,14 +18,14 @@ for (let i=0; i<width; i++) {
         .beginFill(0xffffff)
         .drawRect(0,0,1,1)
         .endFill();
-        cells[i][j].x = 1*j;
-        cells[i][j].y = 1*i;
+        cells[i][j].x = j;
+        cells[i][j].y = i;
         cells[i][j].tint = 0x000000;
-        app.stage.addChild(cells[i][j]);
+        screen.stage.addChild(cells[i][j]);
     }
 }
-let cnt = 0;
-app.ticker.add(function () {
+
+screen.ticker.add(function () {
     for (let i=0; i<width; i++) {
         for (let j=0; j<height; j++) {
             if (board[i][j] == true) {
